@@ -90,7 +90,7 @@ public class ApplicationController(
     [HttpGet("internal-data/{id}")]
     public async Task<IActionResult> GetApplicationDetails(Guid id)
     {
-        var applicationDetails = await applicationService.GetApplicationById(id);
+        Accreditation? applicationDetails = await applicationService.GetApplicationById(id);
         return SuccessResponseWithData(applicationDetails);
     }
 

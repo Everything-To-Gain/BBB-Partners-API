@@ -10,4 +10,10 @@ public class VisualDataController(ITobService tobService) : CustomControllerBase
     {
         return SuccessResponseWithData(await tobService.GetTOBs(searchTerm));
     }
+
+    [HttpGet("type-of-business/{cbbbId}")]
+    public async Task<IActionResult> GetTobName(string cbbbId)
+    {
+        return SuccessResponseWithData(await tobService.GetTOBName(cbbbId));
+    }
 }

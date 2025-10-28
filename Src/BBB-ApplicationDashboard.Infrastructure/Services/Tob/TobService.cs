@@ -24,4 +24,17 @@ public class TobService(IMongoDatabase database) : ITobService
 
         return await pipeline.Project<TOB>(projection).Limit(10).ToListAsync();
     }
+
+    public async Task<string> GetTOBName(string cbbbId)
+    {
+        var col = database.GetCollection<BsonDocument>("tobs");
+
+        var filter = Builders<BsonDocument>.Filter.Eq("properties.cbbbid", cbbbId);
+
+        var projection = Builders<BsonDocument>.Projection.Include("properties.tob");
+
+        var doc = await col.Find(filter).Project<BsonDocument>(projection).FirstOrDefaultAsync();
+
+        return doc?["properties"]?["tob"]?.AsString ?? string.Empty;
+    }
 }
