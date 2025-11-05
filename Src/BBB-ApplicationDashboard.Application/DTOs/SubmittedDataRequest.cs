@@ -88,6 +88,8 @@ public class SubmittedDataRequest
     [Required(ErrorMessage = "Business type is required!")]
     public required string? BusinessType { get; set; }
 
+    public List<string>? SecondaryBusinessTypes { get; set; }
+
     [Required(ErrorMessage = "Business entity type is required!")]
     public required string BusinessEntityType { get; set; }
 

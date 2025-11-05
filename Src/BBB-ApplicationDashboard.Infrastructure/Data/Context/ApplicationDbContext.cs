@@ -63,6 +63,15 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         modelBuilder.Entity<Accreditation>().HasIndex(a => a.ApplicationNumber);
 
         modelBuilder
+            .Entity<Accreditation>()
+            .Property(a => a.SecondaryBusinessTypes)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, options),
+                v => JsonSerializer.Deserialize<List<string>>(v, options) ?? new List<string>()
+            )
+            .HasColumnType("jsonb");
+
+        modelBuilder
             .Entity<ActivityEvent>()
             .Property(ae => ae.SyncSource)
             .HasDefaultValue("OnlineSync");
